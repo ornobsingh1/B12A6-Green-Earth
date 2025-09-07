@@ -97,8 +97,28 @@
     </header>
 
     <main class="bg-green-50">
+      <!-- categories section -->
+      <section class="w-11/12 mx-auto">
+        <h2 class="text-2xl font-semibold text-center py-4">
+          Choose Your Trees
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+          <div class="h-10 col-span-2">
+            <h2 class="text-xl font-bold text-center">Categories</h2>
+            <div id="categories-container" class="space-y-2.5 mt-5"></div>
+          </div>
+
+          <div
+            id="plants-container"
+            class="h-10 col-span-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"
+          ></div>
+
+          <div class="h-10 bg-red-300 col-span-2"></div>
+        </div>
+      </section>
+
       <!-- about section -->
-      <section class="w-11/12 md:w-9/12 mx-auto py-16">
+      <section class="w-11/12 md:w-9/12 mx-auto py-16 hidden">
         <h2 class="text-2xl font-bold text-center mb-8">About the Campaign</h2>
         <div
           class="flex flex-col md:flex-row justify-between items-center md:gap-8 md:m-10"
@@ -123,7 +143,7 @@
       </section>
 
       <!-- impect section -->
-      <section class="bg-[#CFF0DC]">
+      <section class="bg-[#CFF0DC] hidden">
         <div class="p-12 w-11/12 mx-auto">
           <h2 class="text-2xl font-bold text-center mb-8">Our Impact</h2>
           <div
@@ -146,7 +166,7 @@
       </section>
 
       <!-- donate section -->
-      <section class="bg-[#166534] py-10">
+      <section class="bg-[#166534] py-10 hidden">
         <h2 class="text-2xl font-semibold text-white text-center pb-6">
           Plant a Tree Today
         </h2>
@@ -183,7 +203,7 @@
       </section>
     </main>
 
-    <footer class="bg-[#14532D] p-6">
+    <footer class="bg-[#14532D] p-6 hidden">
       <p class="text-white text-center">
         © 2025 Green Earth. All Rights Reserved.
       </p>
