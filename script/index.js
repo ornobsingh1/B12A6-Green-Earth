@@ -1,4 +1,3 @@
-
 const loadCategory = () => {
   fetch("https://openapi.programming-hero.com/api/categories")
     .then((res) => res.json())
@@ -42,6 +41,26 @@ const loadCardByCategory = (id) => {
     .catch((error) => console.log(error));
 };
 
+const loadCardDetails = (id) => {
+  fetch(`https://openapi.programming-hero.com/api/plant/${id}`)
+    .then((res) => res.json())
+    .then((data) => displayCardDetails(data.plants))
+    .catch((error) => console.log(error));
+};
+
+const displayCardDetails = (plants) => {
+  const { name, image, category, price, description } = plants;
+  const detailsContainer = document.getElementById("details-container");
+  detailsContainer.innerHTML = `
+    <h2 class="text-xl font-bold">${name}</h2>
+    <img class="h-[250px] w-full object-cover" src="${image}" alt="">
+    <h3 class="font-semibold">Category: <span class="text-md font-medium text-gray-500">${category}</span></h3>
+    <h3 class="font-semibold">Price: <span class="text-md font-medium text-gray-500">$${price}</span></h3>
+    <h3 class="font-semibold">Description: <span class="text-md font-medium text-gray-500">${description}</span></h3>
+  `;
+  document.getElementById("plant_modal").showModal();
+};
+
 const displayCardByCategory = (plants) => {
   const plantsContainer = document.getElementById("plants-container");
   plantsContainer.innerHTML = "";
@@ -58,7 +77,7 @@ const displayCardByCategory = (plants) => {
           />
         </figure>
         <div class="space-y-2 p-2 mt-auto ">
-          <h2 class="card-title font-semibold">${name}</h2>
+          <h2  onclick="loadCardDetails(${id})" class="card-title font-semibold cursor-pointer">${name}</h2>
           <p class="text-gray-500 text-xs">${description}</p>
           <div class="card-actions justify-between">
             <div class="badge badge-outline rounded-3xl text-green-600 bg-green-100 p-2">${category}</div>
