@@ -1,3 +1,4 @@
+
 const loadCategory = () => {
   fetch("https://openapi.programming-hero.com/api/categories")
     .then((res) => res.json())
@@ -46,7 +47,7 @@ const displayCardByCategory = (plants) => {
   plantsContainer.innerHTML = "";
 
   plants.forEach((plant) => {
-    const { name, image, description, category, price } = plant;
+    const { id, name, image, description, category, price } = plant;
     const div = document.createElement("div");
     div.innerHTML = `
       <div class="card bg-white shadow-sm p-3 h-full">
@@ -63,12 +64,53 @@ const displayCardByCategory = (plants) => {
             <div class="badge badge-outline rounded-3xl text-green-600 bg-green-100 p-2">${category}</div>
             <div class="badge text-lg font-semibold">$${price}</div>
           </div>
-          <button class="btn bg-green-600 text-white w-full p-2 rounded-3xl mt-1">Add to Cart</button>
+          <button id="addToCart" class="btn bg-green-600 text-white w-full p-2 rounded-3xl mt-1">Add to Cart</button>
         </div>
       </div>
     `;
     plantsContainer.appendChild(div);
   });
 };
+
+document.getElementById("plants-container").addEventListener("click", (e) => {
+  if (e.target.id === "addToCart") {
+    const card = e.target.closest(".card");
+    const name = card.querySelector(".card-title").innerText;
+    const price = card.querySelector(".badge.text-lg").innerText;
+    const convertedPrice = parseFloat(price.replace("$", ""));
+
+    // add-money
+    const totalPrice = parseFloat(
+      document.getElementById("total-price").innerText.trim()
+    );
+    const currentTotal = convertedPrice + totalPrice;
+    document.getElementById("total-price").innerText = currentTotal;
+
+    const addToCartContainer = document.getElementById("addToCart-container");
+    const newDiv = document.createElement("div");
+    newDiv.innerHTML = `
+      <div class="card-item flex justify-between items-center bg-[#F0FDF4] p-3 rounded-lg mb-3">
+        <div>
+          <h3 class="font-semibold">${name}</h3>
+          <span class="font-semibold">$${convertedPrice}</span>
+        </div>
+        <div>
+          <i class="fa-solid fa-trash cursor-pointer hover:text-red-500"></i>
+        </div>
+      </div>
+    `;
+    addToCartContainer.appendChild(newDiv);
+
+    newDiv.querySelector(".fa-trash").addEventListener("click", () => {
+      const itemPrice = parseFloat(
+        newDiv.querySelector("span").innerText.replace("$", "")
+      );
+      document.getElementById("total-price").innerText =
+        parseFloat(document.getElementById("total-price").innerText) -
+        itemPrice;
+      newDiv.remove();
+    });
+  }
+});
 
 loadCategory();
