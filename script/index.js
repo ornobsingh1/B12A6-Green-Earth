@@ -16,7 +16,7 @@ const displayLoadCategory = (categories) => {
 
     const newDiv = document.createElement("div");
     newDiv.innerHTML = `
-      <button id="${id}" class="btn hover:bg-green-600 w-full hover:text-white">${category_name}</button>
+      <button id="${id}" class="hover:bg-green-600 w-full hover:text-white rounded cursor-pointer">${category_name}</button>
     `;
     categoriesContainer.appendChild(newDiv);
 
@@ -33,6 +33,8 @@ const displayLoadCategory = (categories) => {
         loadCardByCategory(e.target.id);
 
         showLoading();
+      } else {
+        return;
       }
     });
   });
@@ -57,10 +59,18 @@ const displayCardDetails = (plants) => {
   const detailsContainer = document.getElementById("details-container");
   detailsContainer.innerHTML = `
     <h2 class="text-xl font-bold">${name}</h2>
-    <img class="h-[250px] w-full object-cover" src="${image}" alt="">
-    <h3 class="font-semibold">Category: <span class="text-md font-medium text-gray-500">${category}</span></h3>
-    <h3 class="font-semibold">Price: <span class="text-md font-medium text-gray-500">$${price}</span></h3>
-    <h3 class="font-semibold">Description: <span class="text-md font-medium text-gray-500">${description}</span></h3>
+    <div>
+      <img class="h-full object-cover" src="${image}" alt="">
+    </div>
+    <h3 class="font-semibold">Category: <span class="text-md font-medium text-gray-500">${
+      category ? category : "N/A"
+    }</span></h3>
+    <h3 class="font-semibold">Price: <span class="text-md font-medium text-gray-500">$${
+      price ? price : "N/A"
+    }</span></h3>
+    <h3 class="font-semibold">Description: <span class="text-md font-medium text-gray-500">${
+      description ? description : "N/A"
+    }</span></h3>
   `;
   document.getElementById("plant_modal").showModal();
 };
@@ -81,11 +91,19 @@ const displayCardByCategory = (plants) => {
           />
         </figure>
         <div class="space-y-2 p-2 mt-auto ">
-          <h2  onclick="loadCardDetails(${id})" class="card-title font-semibold cursor-pointer">${name}</h2>
-          <p class="text-gray-500 text-xs">${description}</p>
+          <h2  onclick="loadCardDetails(${id})" class="card-title font-semibold cursor-pointer">${
+      name ? name : "N/A"
+    }</h2>
+          <p class="text-gray-500 text-xs">${
+            description ? description : "N/A"
+          }</p>
           <div class="card-actions justify-between">
-            <div class="badge badge-outline rounded-3xl text-green-600 bg-green-100 p-2">${category}</div>
-            <div class="badge text-lg font-semibold">$${price}</div>
+            <div class="badge badge-outline rounded-3xl text-green-600 bg-green-100 p-2">${
+              category ? category : "N/A"
+            }</div>
+            <div class="badge text-lg font-semibold">$${
+              price ? price : "N/A"
+            }</div>
           </div>
           <button id="addToCart" class="btn bg-green-600 text-white w-full p-2 rounded-3xl mt-1">Add to Cart</button>
         </div>
