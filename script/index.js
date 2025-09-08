@@ -3,6 +3,8 @@ const loadCategory = () => {
     .then((res) => res.json())
     .then((data) => displayLoadCategory(data.categories))
     .catch((error) => console.log(error));
+
+  fetch("");
 };
 
 const displayLoadCategory = (categories) => {
@@ -29,6 +31,8 @@ const displayLoadCategory = (categories) => {
         e.target.classList.add("bg-green-600");
         e.target.classList.add("text-white");
         loadCardByCategory(e.target.id);
+
+        showLoading();
       }
     });
   });
@@ -131,5 +135,13 @@ document.getElementById("plants-container").addEventListener("click", (e) => {
     });
   }
 });
+
+const showLoading = () => {
+  document.getElementById("plants-container").innerHTML = `
+     <div class="flex justify-center items-center col-span-full">
+      <span class="loading loading-bars loading-xl"></span>
+     </div>
+  `;
+};
 
 loadCategory();
